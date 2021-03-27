@@ -4,45 +4,45 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class read1 {
         public static void main(String[] args) throws IOException
         {
-            System.out.println("请输入文件的路径：");
-            Scanner in = new Scanner(System.in);
-            String path = in.nextLine();
+
             //BufferedReader是可以按行读取文件
-            FileInputStream inputStream = new FileInputStream(path);
+            FileInputStream inputStream = new FileInputStream("D:\\data\\idkp1-10.txt");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-
-
             String str = null;
-            str = bufferedReader.readLine();
-            while(str != null)
+//            读取文件中的一行数据
+
+//            存放物品价值和质量的列表
+            ArrayList<String> profitList = new ArrayList<>();
+            ArrayList<String> weightList = new ArrayList<>();
+            while((str = bufferedReader.readLine()) != null)
             {
-                str = bufferedReader.readLine();
-                System.out.println(str);
-                String str1="The diemnsion is d=3*10,the cubage of knapsack is";
-                //if(str.indexOf("RO")>=0 ||str1.indexOf("EL")>=0 ||str1.indexOf("RO")>=0)
-                if(str.contains("the cubage of knapsack is")){
-                    str = str.trim();
-                    int j=0;
-                    String [] str2 = new String [20];
-                    if (str!= null && !"".equals(str)) {
-                        for (int i = str.length()-1; i>0; i--) {
-                            if(str.charAt(i)!=',' && str.charAt(i) >= 48 && str.charAt(i) <= 57) {
-                                str2[j] += str.charAt(i);
-                            }
-                            System.out.println("!!!!!!!!!!!!!!!!!the cubage of knapsack is "+str2);
-                        }
-                    }
-                    System.out.println("字符串中提取的数字为： " + str2);
+                if(str.contains("The profit of")){
+                    profitList.add(bufferedReader.readLine());
                 }
-
+                if(str.contains("The weight of")){
+                    weightList.add(bufferedReader.readLine());
+                }
             }
-
+//            System.out.println("======================这是每一组所有的物品价值======================");
+//            for (String s : profitList) {
+//                System.out.println(s);
+//            }
+//            System.out.println("================================这是每一组物品的重量================================");
+//            for (String s : weightList) {
+//                System.out.println(s);
+//            }
+            ArrayList<Integer> integers = new ArrayList<>();
+            for (String s : profitList) {
+                String replace = s.replace(".", "");
+                String[] split = replace.split(",");
+                
+            }
             //close
             inputStream.close();
             bufferedReader.close();
