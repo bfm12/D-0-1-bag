@@ -41,6 +41,9 @@ public class read1 {
             for (String s : profitList) {
                 String replace = s.replace(".", "");
                 String[] split = replace.split(",");
+                for (String s1 : split) {
+                    System.out.println(s1);
+                }
                 
             }
             //close
