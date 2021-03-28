@@ -1,5 +1,6 @@
 package main.java.blog;
 
+import com.sun.org.apache.xpath.internal.objects.XString;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class read1 {
         {
 
             //BufferedReader是可以按行读取文件
-            FileInputStream inputStream = new FileInputStream("D:\\data\\idkp1-10.txt");
+            FileInputStream inputStream = new FileInputStream("E:\\idea_workspace\\data\\idkp1-10.txt");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String str = null;
 //            读取文件中的一行数据
@@ -37,16 +38,33 @@ public class read1 {
 //            for (String s : weightList) {
 //                System.out.println(s);
 //            }
+
             ArrayList<Integer> integers = new ArrayList<>();
+//            遍历物品重量，将其分割出来
             for (String s : profitList) {
                 String replace = s.replace(".", "");
                 String[] split = replace.split(",");
                 for (String s1 : split) {
-                    System.out.println(s1);
+//                    字符型转整形
+                    int profit  =  Integer.parseInt(s1);
+                    System.out.println(profit);
                 }
-                
+                System.out.println();
+                System.out.println();
             }
-            //close
+//            遍历物品重量，将其分割出来
+            for (String s : weightList){
+                String replace = s.replace(".", "");
+                String[] split = replace.split(",");
+                for (String s1 : split){
+//                    字符型转整形
+                    int weight = Integer.parseInt(s1);
+                    System.out.println(weight);
+                }
+                System.out.println();
+                System.out.println();
+            }
+                //close
             inputStream.close();
             bufferedReader.close();
 

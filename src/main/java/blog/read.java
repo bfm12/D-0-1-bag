@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class read {
     public static void main(String[] args) throws IOException {
-        System.out.println("请输入文件的路径：");
+
         Scanner in = new Scanner(System.in);
         String path = in.nextLine();
         File file = new File(path);
