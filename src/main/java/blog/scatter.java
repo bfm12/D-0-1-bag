@@ -28,8 +28,8 @@ public class scatter {
         //实现简单的散点图，设置基本的数据
         JFreeChart freeChart = ChartFactory.createScatterPlot(
                 "数据散点图",// 图表标题
-                "价值",//y轴方向数据标签
-                "重量",//x轴方向数据标签
+                "价值",//x轴方向数据标签
+                "重量",//y轴方向数据标签
                 dataset,//数据集，即要显示在图表上的数据
                 PlotOrientation.VERTICAL,//设置方向
                 true,//是否显示图例

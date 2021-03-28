@@ -6,7 +6,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -20,7 +19,7 @@ public class read2 {
     {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("请输入文件名：");
+        System.out.println("请输入文件名(1、idkp1-10；  2、sdkp1-10；  3、udkp1-10；  4、wdkp1-10)：");
         String fileName=scanner.nextLine();
         String rootPath="E:\\idea_workspace\\data\\";
         //BufferedReader是可以按行读取文件
@@ -49,8 +48,7 @@ public class read2 {
 //            for (String s : weightList) {
 //                System.out.println(s);
 //            }
-
-        ArrayList<Integer> integers = new ArrayList<>();
+//        ArrayList<Integer> integers = new ArrayList<>();
 //            遍历物品重量，将其分割出来
         System.out.println("输出所有物品价值：");
         int profits[][] = new int[12][4000];
@@ -85,6 +83,7 @@ public class read2 {
             }
             m++;
         }
+
 //        绘制散点图
         System.out.println("请输入所要绘制的散点图的组数： ");
         int group=scanner.nextInt();
@@ -94,23 +93,20 @@ public class read2 {
         bufferedReader.close();
 
     }
-
     /**
      * 画散点图
      * @throws IOException
      */
     private static   void drawScatter(int[] profitList,int[] weightList) throws IOException {
         //设置散点图数据集
-        //设置第一个
+        //绘制每一个点
         XYSeries firefox = new XYSeries("背包问题");
         for (int i = 0,j=0; i < profitList.length; i++,j++) {
             firefox.add(weightList[i],profitList[j]);
         }
-
         //添加到数据集
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(firefox);
-
 
         //实现简单的散点图，设置基本的数据
         JFreeChart freeChart = ChartFactory.createScatterPlot(
@@ -135,8 +131,8 @@ public class read2 {
 
         //将主窗口的内容面板设置为图表面板
         frame.setContentPane(chartPanel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+
 }
