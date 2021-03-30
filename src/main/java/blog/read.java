@@ -49,12 +49,6 @@ public class read {
                 dataOrder(scanner);
             }
         }while(choice!=5);
-
-
-
-
-
-
     }
 
     private static void dataOrder(Scanner scanner) {
