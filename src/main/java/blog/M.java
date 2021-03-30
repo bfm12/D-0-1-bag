@@ -18,6 +18,7 @@ public class M {
     private static String[] cubage=new String[12];
     private static int profits[][] = new int[12][4000];
     private static int weights[][] = new int[12][4000];
+    private static int choosezu;
 
     public static void main(String[] args) throws IOException
     {
@@ -43,12 +44,12 @@ public class M {
             }else if(choice==3){
                 readFile();
                 System.out.println("输入你想要选择的组数：");
-                int groups = scanner.nextInt();
-                int C = Integer.parseInt(cubage[groups-1]);
-                int count = profits[groups-1].length;
-                solution(C, count,profits[groups-1], weights[groups-1]);
-                //System.out.println(dp2(C, count, profits[groups], weights[groups]));
-
+                choosezu = scanner.nextInt();
+                System.out.println();
+                int C = Integer.parseInt(cubage[choosezu-1]);
+                //System.out.println(C);
+                int count = profits[choosezu-1].length;
+                System.out.println(knaspace(C));
             }else if(choice==4){
                 readFile();
                 System.out.println("输入你想要选择的组数：");
@@ -268,55 +269,30 @@ public class M {
      * 动态规划算法
      * @throws IOException
      */
-    public static void solution(int C,int count,int[] w,int[] v){
-        int[][] temp = new int[count][C];
-//        for(int j = 0;j < C;j++){
-//            temp[0][j] = 0;
-//        }
-//        for(int i = 1;i < count;i++){
-//            temp[i][0] = 0;
-//        }
-        for(int i = 1;i < count;i++){
-            for(int j = 1;j < C;j++){
-                if(w[i] <= j){
-                    temp[i][j] = Math.max(temp[i-1][j], temp[i-1][j-w[i]]+v[i]);
-                }else{
-                    temp[i][j] = temp[i-1][j];//第i件物品不能放
-                }
-            }
+    public static int knaspace(int maxweight) {
+        int n = weights[choosezu].length;
+        int[][] maxvalue = new int[n + 1][maxweight + 1];
+        for (int i = 0; i < maxweight + 1; i++) {
+            maxvalue[0][i] = 0;
+            System.out.print(maxvalue[0][i]);
         }
-        for(int i = 0;i < count;i++){
-            for(int j = 0;j < C;j++){
-                System.out.print(temp[i][j] + " ");
-            }
-            System.out.println();
+        for (int i = 0; i < n + 1; i++) {
+            maxvalue[i][0] = 0;
+            System.out.print(maxvalue[i][0]);
         }
-    }
-    /*
-    public static int dp2(int weight, int count, int[] weights, int[] costs) {
-        int[] preLine = new int[weight + 1];
-        int[] curLine = new int[weight + 1];
-        int[] pack = new int[50];
-        int num=0;
-        for (int i = 0; i < count; i++) {
-            for (int j = 0; j <= weight; j++)
-                if (weights[i] <= j){
-                    if (preLine[j]>costs[i] + preLine[j - weights[i]]){
-                        curLine[j]=preLine[j];
-
-
-                    }else{
-                        curLine[j]=costs[i] + preLine[j - weights[i]];
-
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= maxweight; j++) {
+                maxvalue[i][j] = maxvalue[i - 1][j];
+                if (weights[choosezu-1][i-1] <= j) {
+                    if (maxvalue[i - 1][j - weights[choosezu-1][i - 1]] + profits[choosezu-1][i - 1] > maxvalue[i - 1][j]) {
+                        maxvalue[i][j] = maxvalue[i - 1][j - weights[choosezu-1][i - 1]] + profits[choosezu-1][i - 1];
                     }
-
-                    //curLine[j] = Math.max(preLine[j], costs[i] + preLine[j - weights[i]]);
+                    System.out.println("=========== weight="+weights[choosezu-1][i - 1]+"  value="+profits[choosezu-1][i - 1]+"  "+maxvalue[i][j]);
                 }
-            preLine = curLine.clone();
+            }
         }
-        return curLine[curLine.length - 1];
+        return maxvalue[n][maxweight];
     }
-*/
     /**
      * 结果写入文件
      * @throws IOException
