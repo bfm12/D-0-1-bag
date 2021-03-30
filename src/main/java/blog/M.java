@@ -1,12 +1,12 @@
 package main.java.blog;
 
-import com.sun.scenario.effect.impl.sw.java.JSWColorAdjustPeer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class read {
+public class M {
     private static String[] cubage=new String[12];
     private static int profits[][] = new int[12][4000];
     private static int weights[][] = new int[12][4000];
@@ -45,8 +45,9 @@ public class read {
                 System.out.println("输入你想要选择的组数：");
                 int groups = scanner.nextInt();
                 int C = Integer.parseInt(cubage[groups-1]);
-                int count=profits[groups-1].length;
-                System.out.println(dp2(C, count, profits[groups-1], weights[groups-1]));
+                int count = profits[groups-1].length;
+                solution(C, count,profits[groups-1], weights[groups-1]);
+                //System.out.println(dp2(C, count, profits[groups], weights[groups]));
 
             }else if(choice==4){
                 readFile();
@@ -241,7 +242,7 @@ public class read {
         }
     }
     /**
-    *回溯算法
+     *回溯算法
      */
     public void  recursion(ArrayList<Integer> ret, int volume, int[][] p, int[][] w, int totalProfit, int totalWeight, int i, int j){
         if(j!=3){
@@ -267,6 +268,31 @@ public class read {
      * 动态规划算法
      * @throws IOException
      */
+    public static void solution(int C,int count,int[] w,int[] v){
+        int[][] temp = new int[count][C];
+//        for(int j = 0;j < C;j++){
+//            temp[0][j] = 0;
+//        }
+//        for(int i = 1;i < count;i++){
+//            temp[i][0] = 0;
+//        }
+        for(int i = 1;i < count;i++){
+            for(int j = 1;j < C;j++){
+                if(w[i] <= j){
+                    temp[i][j] = Math.max(temp[i-1][j], temp[i-1][j-w[i]]+v[i]);
+                }else{
+                    temp[i][j] = temp[i-1][j];//第i件物品不能放
+                }
+            }
+        }
+        for(int i = 0;i < count;i++){
+            for(int j = 0;j < C;j++){
+                System.out.print(temp[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    /*
     public static int dp2(int weight, int count, int[] weights, int[] costs) {
         int[] preLine = new int[weight + 1];
         int[] curLine = new int[weight + 1];
@@ -277,14 +303,11 @@ public class read {
                 if (weights[i] <= j){
                     if (preLine[j]>costs[i] + preLine[j - weights[i]]){
                         curLine[j]=preLine[j];
-                        pack[num]=j;
-//                        System.out.println(pack[num]);
-                        num++;
+
+
                     }else{
                         curLine[j]=costs[i] + preLine[j - weights[i]];
-                        pack[num]=i;
-//                        System.out.println(pack[num]);
-                        num++;
+
                     }
 
                     //curLine[j] = Math.max(preLine[j], costs[i] + preLine[j - weights[i]]);
@@ -293,7 +316,7 @@ public class read {
         }
         return curLine[curLine.length - 1];
     }
-
+*/
     /**
      * 结果写入文件
      * @throws IOException
@@ -304,6 +327,7 @@ public class read {
         String data="888";
         out.write(data);
         out.close();
-
     }
 }
+
+
