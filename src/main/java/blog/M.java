@@ -9,10 +9,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class M {
     private static String[] cubage=new String[12];
@@ -49,7 +46,7 @@ public class M {
                 int C = Integer.parseInt(cubage[choosezu-1]);
                 //System.out.println(C);
                 int count = profits[choosezu-1].length;
-                System.out.println(knaspace(C));
+                knaspace(count,C);
             }else if(choice==4){
                 readFile();
                 System.out.println("输入你想要选择的组数：");
@@ -269,39 +266,47 @@ public class M {
      * 动态规划算法
      * @throws IOException
      */
-    public static int knaspace(int maxweight) {
+    public static int knaspace(int count,int maxweight) throws IOException {
+        long start = Calendar.getInstance().getTimeInMillis();
         int n = weights[choosezu].length;
         int[][] maxvalue = new int[n + 1][maxweight + 1];
         for (int i = 0; i < maxweight + 1; i++) {
             maxvalue[0][i] = 0;
-            System.out.print(maxvalue[0][i]);
+            //System.out.print(maxvalue[0][i]);
         }
         for (int i = 0; i < n + 1; i++) {
             maxvalue[i][0] = 0;
-            System.out.print(maxvalue[i][0]);
+           // System.out.print(maxvalue[i][0]);
         }
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= count; i++) {
             for (int j = 1; j <= maxweight; j++) {
                 maxvalue[i][j] = maxvalue[i - 1][j];
                 if (weights[choosezu-1][i-1] <= j) {
                     if (maxvalue[i - 1][j - weights[choosezu-1][i - 1]] + profits[choosezu-1][i - 1] > maxvalue[i - 1][j]) {
                         maxvalue[i][j] = maxvalue[i - 1][j - weights[choosezu-1][i - 1]] + profits[choosezu-1][i - 1];
                     }
-                    System.out.println("=========== weight="+weights[choosezu-1][i - 1]+"  value="+profits[choosezu-1][i - 1]+"  "+maxvalue[i][j]);
+                   // System.out.println("=========== weight="+weights[choosezu-1][i - 1]+"  value="+profits[choosezu-1][i - 1]+"  "+maxvalue[i][j]);
                 }
             }
         }
-        return maxvalue[n][maxweight];
+        int resule = maxvalue[count][maxweight];
+        long end = Calendar.getInstance().getTimeInMillis();
+        double spentTime = (double) end - start;
+        System.out.println("得到背包的最大价值为： "+resule);
+        System.out.println("程序运行时间：" + spentTime/1000 + "s");
+        write(resule,spentTime);
+        return 0;
     }
     /**
      * 结果写入文件
      * @throws IOException
      */
-    private static void write() throws IOException {
-        File file =new File("D:\\2.txt");
+    private static void write(int results,double time) throws IOException {
+        File file =new File("E:\\idea_workspace\\data\\result.txt");
         Writer out =new FileWriter(file);
         String data="888";
-        out.write(data);
+        out.write("得到背包的最大价值为: "+results);
+        out.write("      程序运行时间: "+time);
         out.close();
     }
 }
