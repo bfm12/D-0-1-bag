@@ -117,8 +117,7 @@ public class M {
      * @throws IOException
      */
     private static void drawScatter(int[] profitList,int[] weightList) throws IOException {
-        //设置散点图数据集
-        //绘制每一个点
+        //设置散点图
         XYSeries firefox = new XYSeries("背包问题");
         for (int i = 0,j=0; i < profitList.length; i++,j++) {
             firefox.add(weightList[i],profitList[j]);
